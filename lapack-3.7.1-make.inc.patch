@@ -1,0 +1,15 @@
+diff -up lapack-3.7.1/INSTALL/make.inc.gfortran.fedora lapack-3.7.1/INSTALL/make.inc.gfortran
+--- lapack-3.7.1/INSTALL/make.inc.gfortran.fedora	2017-08-01 11:44:51.631843862 -0400
++++ lapack-3.7.1/INSTALL/make.inc.gfortran	2017-08-01 11:45:32.001809404 -0400
+@@ -20,9 +20,9 @@ CFLAGS = -O3
+ #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
+ #
+ FORTRAN = gfortran
+-OPTS    = -O2 -frecursive
++# OPTS    = -O2 -frecursive
+ DRVOPTS = $(OPTS)
+-NOOPT   = -O0 -frecursive
++NOOPT   = 
+ 
+ #  Define LOADER and LOADOPTS to refer to the loader and desired
+ #  load options for your machine.
