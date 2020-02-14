@@ -5,7 +5,7 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	12
+Release:	13
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -76,6 +76,7 @@ lapack_make()
       OPTS="%{optflags} -fPIC" \
       NOOPT="%{optflags} -O0 -fPIC"
     mv $3$2.a $2_pic.a
+    cp $2_pic.a tmp
     mkdir shared
     cd shared
     ar x ../$2_pic.a
@@ -90,11 +91,11 @@ lapack_make()
 }
 
 
+mkdir tmp
 #build blas
 lapack_make blaslib libblas
 mv libblas.a BLAS/
 lapack_make lapacklib liblapack
-
 
 cd LAPACKE
 lapack_make lapacke liblapacke ../
@@ -111,6 +112,8 @@ chmod 755 ${RPM_BUILD_ROOT}%{_mandir}/man3
 for f in liblapack.so.%{version} libblas.so.%{version} liblapacke.so.%{version} libblas.a liblapack.a liblapacke.a; do
   cp -f $f ${RPM_BUILD_ROOT}%{_libdir}/$f
 done
+cp -f tmp/liblapack_pic.a ${RPM_BUILD_ROOT}%{_libdir}/liblapack_pic.a
+rm -rf tmp
 
 
 # remove weird man pages
@@ -177,6 +180,7 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %{_libdir}/pkgconfig/lapack.pc
 %{_libdir}/pkgconfig/lapacke.pc
 %{_libdir}/liblapack.a
+%{_libdir}/liblapack_pic.a
 %{_libdir}/liblapacke.a
 %{_libdir}/libblas.so
 %{_libdir}/pkgconfig/blas.pc
@@ -201,7 +205,10 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
-* Mon Jan 20 2020 openEuler Buildteam <buildteam@openeuler.org> - 3.8.0-11
+* Thu Feb 13 2020 likexin <likexin4@huawei.com> - 3.8.0-13
+- Add liblapack_pic.a
+
+* Mon Jan 20 2020 openEuler Buildteam <buildteam@openeuler.org> - 3.8.0-12
 - Optimize spec
 
 * Thu Nov 14 2019 openEuler Buildteam <buildteam@openeuler.org> - 3.8.0-11
