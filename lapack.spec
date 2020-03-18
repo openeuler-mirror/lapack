@@ -5,7 +5,7 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	13
+Release:	14
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -58,6 +58,8 @@ The %{name}-help package conatins man manual etc
 
 cp -f make.inc.example make.inc
 sed -i "s|librefblas.a|libblas.a|g" make.inc
+sed -i '36iCFLAGS+= -fstack-protector-strong' LAPACKE/utils/Makefile
+sed -i '40iCFLAGS+= -fstack-protector-strong' LAPACKE/src/Makefile
 
 %build
 RPM_OPT_FLAGS="$RPM_OPT_FLAGS -frecursive"
@@ -71,6 +73,7 @@ export FC=gfortran
 # param4: object name
 lapack_make()
 {
+    export
     %make_build cleanlib
     %make_build $1 \
       OPTS="%{optflags} -fPIC" \
@@ -81,13 +84,14 @@ lapack_make()
     cd shared
     ar x ../$2_pic.a
     cd ..
-    gfortran -shared -Wl,-soname=$2.so.3 -o $2.so.%{version} shared/*.o
+    gfortran -shared -Wl,-z,now,-soname=$2.so.3 -o $2.so.%{version} shared/*.o
     ln -s $2.so.%{version} $2.so
     rm -rf shared
     %make_build cleanlib
     %make_build  $1 \
       OPTS="%{optflags}" \
       NOOPT="%{optflags} -O0"
+    export
 }
 
 
@@ -205,6 +209,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Wed Mar 18 2020 zhujunhao <zhujunhao5@huawei.com> - 3.8.0-14
+- Add safe compilation options
+
 * Thu Feb 13 2020 likexin <likexin4@huawei.com> - 3.8.0-13
 - Add liblapack_pic.a
 
