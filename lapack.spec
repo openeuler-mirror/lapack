@@ -5,7 +5,7 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	14
+Release:	15
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -16,7 +16,7 @@ Patch1:         lapack-3.8.0-missing-aawork.patch
 
 BuildRequires:	git gcc-gfortran
 Provides:	blas = %{version}-%{release}
-Obsoletes:	blas
+Obsoletes:	blas < %{version}-%{release}
 
 %global _description\
 LAPACK (Linear Algebra PACKage) is a standard library for numerical\
@@ -37,11 +37,11 @@ is coded in Fortran90 and built with gcc.\
 Summary:	LAPACK development libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	%{name}-static = %{version}-%{release}
-Obsoletes:	%{name}-static
+Obsoletes:	%{name}-static < %{version}-%{release}
 Provides:	blas-devel = %{version}-%{release}
-Obsoletes:	blas-devel
+Obsoletes:	blas-devel < %{version}-%{release}
 Provides:	blas-static = %{version}-%{release}
-Obsoletes:	blas-static
+Obsoletes:	blas-static < %{version}-%{release}
 
 %description devel
 LAPACK development libraries (shared).
@@ -207,6 +207,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Thu Mar 19 2020 gulining1 <gulining1@huawei.com> - 3.8.0-15
+- Add version for obsoletes packages
+
 * Wed Mar 18 2020 zhujunhao <zhujunhao5@huawei.com> - 3.8.0-14
 - Add safe compilation options
 
