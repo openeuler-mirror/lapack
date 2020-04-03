@@ -5,7 +5,7 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	16
+Release:	17
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -66,11 +66,10 @@ RPM_OPT_FLAGS="$RPM_OPT_FLAGS -frecursive"
 RPM_OPT_O_FLAGS=$(echo $RPM_OPT_FLAGS | sed 's|-O2|-O0|')
 export FC=gfortran
 
-# These Makefiles are from fedora, so we follow fedora's build method
-# param1: BUILD dir
-# param2: whether to specify the include directory
-# param3: lib name
-# param4: object name
+# make method
+# param1: model name
+# param2: lib name
+# param3: path
 lapack_make()
 {
     %make_build cleanlib
@@ -207,6 +206,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Fri Apr 03 2020 Jiangping Hu <hujp1985@foxmail.com> - 3.8.0-17
+- Fix method annotations of lapack_make
+
 * Thu Mar 19 2020 gulining1 <gulining1@huawei.com> - 3.8.0-16
 - add build option to fix selfbuild error
 
