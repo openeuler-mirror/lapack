@@ -1,18 +1,16 @@
 %global debug_package %{nil}
 %global shortver	3
-%global mediumver	%{shortver}.8
+%global mediumver	%{shortver}.9
 
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	17
+Release:	1
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
-Source0:	http://www.netlib.org/lapack/%{name}-%{version}.tar.gz
+Source0:	https://github.com/Reference-LAPACK/lapack/archive/%{name}-%{version}.tar.gz
 Source1:	http://www.netlib.org/lapack/manpages.tgz
-
-Patch1:         lapack-3.8.0-missing-aawork.patch
 
 BuildRequires:	git gcc-gfortran
 Provides:	blas = %{version}-%{release}
@@ -74,8 +72,8 @@ lapack_make()
 {
     %make_build cleanlib
     %make_build $1 \
-      OPTS="%{optflags} -fPIC" \
-      NOOPT="%{optflags} -O0 -fPIC"
+      FFLAGS="%{optflags} -fPIC" \
+      FFLAGS_NOOPT="%{optflags} -O0 -fPIC"
     mv $3$2.a $2_pic.a
     cp $2_pic.a tmp
     mkdir shared
@@ -87,8 +85,8 @@ lapack_make()
     rm -rf shared
     %make_build cleanlib
     %make_build  $1 \
-      OPTS="%{optflags}" \
-      NOOPT="%{optflags} -O0"
+      FFLAGS="%{optflags}" \
+      FFLAGS_NOOPT="%{optflags} -O0"
 }
 
 
@@ -206,6 +204,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Sat Aug 08 2020 xinghe <xinghe1@huawei.com> - 3.9.0-1
+- update verion to 3.9.0
+
 * Fri Apr 03 2020 Jiangping Hu <hujp1985@foxmail.com> - 3.8.0-17
 - Fix method annotations of lapack_make
 
