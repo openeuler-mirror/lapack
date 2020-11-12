@@ -5,13 +5,14 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	2
+Release:	3
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
 Source0:	https://github.com/Reference-LAPACK/lapack/archive/v%{version}.tar.gz
 Source1:	http://www.netlib.org/lapack/manpages.tgz
 
+Recommends:     %{name}-help = %{version}-%{release}
 BuildRequires:	git gcc-gfortran
 Provides:	blas = %{version}-%{release}
 Obsoletes:	blas < %{version}-%{release}
@@ -204,6 +205,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Thu Nov 12 2020 xinghe <xinghe1@huawei.com> - 3.9.0-3
+- add help for Recommends
+
 * Thu Sep 17 2020 liuweibo <liuweibo10@huawei.com> - 3.9.0-2
 - Fix Source0
 
