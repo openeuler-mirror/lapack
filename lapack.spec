@@ -5,7 +5,7 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	2
+Release:	3
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -56,7 +56,8 @@ The %{name}-help package conatins man manual etc
 
 cp -f make.inc.example make.inc
 sed -i "s|librefblas.a|libblas.a|g" make.inc
-sed -i '36iCFLAGS+= -fstack-protector-strong -fPIC' LAPACKE/utils/Makefile
+# Please take care the changes when upgrading the software package
+sed -i '37iCFLAGS+= -fstack-protector-strong -fPIC' LAPACKE/utils/Makefile
 sed -i '40iCFLAGS+= -fstack-protector-strong -fPIC' LAPACKE/src/Makefile
 
 %build
@@ -204,6 +205,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Thu Mar 18 2021 maminjie <maminjie1@huawei.com> - 3.9.0-3
+- Fix the position of CFLAGS added
+
 * Wed Sep 09 2020 liuweibo <liuweibo10@huawei.com> - 3.9.0-2
 - fix source0
 
