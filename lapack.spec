@@ -5,14 +5,14 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	3
+Release:	4
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
 Source0:	https://github.com/Reference-LAPACK/lapack/archive/v%{version}.tar.gz
 Source1:	http://www.netlib.org/lapack/manpages.tgz
 
-BuildRequires:	git gcc-gfortran
+BuildRequires: gcc-gfortran
 Provides:	blas = %{version}-%{release}
 Obsoletes:	blas < %{version}-%{release}
 
@@ -52,7 +52,7 @@ The %{name}-help package conatins man manual etc
 
 
 %prep
-%autosetup -a 0 -a 1 -p1 -Sgit
+%autosetup -a 0 -a 1 -p1
 
 cp -f make.inc.example make.inc
 sed -i "s|librefblas.a|libblas.a|g" make.inc
@@ -205,6 +205,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Mon Aug 02 2021 chenyanpanHW <chenyanpan@huawei.com> - .0-4
+- DESC: delete -Sgit from %autosetup, and delete BuildRequires git
+
 * Thu Mar 18 2021 maminjie <maminjie1@huawei.com> - 3.9.0-3
 - Fix the position of CFLAGS added
 
