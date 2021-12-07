@@ -1,11 +1,11 @@
 %global debug_package %{nil}
 %global shortver	3
-%global mediumver	%{shortver}.9
+%global mediumver	%{shortver}.10
 
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	4
+Release:	1
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -205,6 +205,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Mon Nov 29 2021 zhouwenpei <zhouwenpei1huawei.com> - 3.10.0-1
+- update verion to 3.10.0
+
 * Mon Aug 02 2021 chenyanpanHW <chenyanpan@huawei.com> - .0-4
 - DESC: delete -Sgit from %autosetup, and delete BuildRequires git
 
