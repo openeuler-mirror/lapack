@@ -1,0 +1,22 @@
+From 39333a8126c1b25b5fc2fb556c4796422a91bc01 Mon Sep 17 00:00:00 2001
+From: zhouwenpei <zhouwenpei1@huawei.com>
+Date: Mon, 6 Dec 2021 15:23:13 +0800
+Subject: [PATCH] fix lapack-devel build error
+
+---
+ LAPACKE/lapacke.pc.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/LAPACKE/lapacke.pc.in b/LAPACKE/lapacke.pc.in
+index 0097c25..c1d806b 100644
+--- a/LAPACKE/lapacke.pc.in
++++ b/LAPACKE/lapacke.pc.in
+@@ -7,4 +7,4 @@ Version: @LAPACK_VERSION@
+ URL: http://www.netlib.org/lapack/#_standard_c_language_apis_for_lapack
+ Libs: -L${libdir} -l@LAPACKELIB@
+ Cflags: -I${includedir}
+-Requires.private: @LAPACKLIB@
++Requires.private: lapack
+-- 
+2.30.0
+
