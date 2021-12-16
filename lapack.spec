@@ -5,12 +5,14 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	4
+Release:	5
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
 Source0:	https://github.com/Reference-LAPACK/lapack/archive/v%{version}.tar.gz
 Source1:	http://www.netlib.org/lapack/manpages.tgz
+
+Patch1:		0001-Fix-out-of-bounds-read-in-slarrv.patch
 
 BuildRequires:	git gcc-gfortran
 Provides:	blas = %{version}-%{release}
@@ -205,6 +207,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Thu Dec 16 2021 qinyu <chinyu0704@outlook.com> - 3.9.0-5
+- fix out of bounds read in xlarrv
+
 * Thu Mar 18 2021 maminjie <maminjie1@huawei.com> - 3.9.0-4
 - Fix the position of CFLAGS added
 
