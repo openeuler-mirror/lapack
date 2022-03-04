@@ -1,11 +1,10 @@
-%global debug_package %{nil}
 %global shortver	3
 %global mediumver	%{shortver}.10
 
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	3
+Release:	4
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -208,6 +207,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Fri Mar 4 2022 yaoxin <yaoxin30@huawei.com> - 3.10.0-4
+- Strip binary files.
+
 * Wed Dec 15 2021 qinyu <chinyu0704@outlook.com> - 3.10.0-3
 - fix lapack-devel build error
 
