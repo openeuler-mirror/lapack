@@ -1,11 +1,10 @@
-%global debug_package %{nil}
 %global shortver	3
 %global mediumver	%{shortver}.10
 
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	4
+Release:	5
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -208,6 +207,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Mon Dec 05 2022 xu_ping <xuping33@h-partners.com> - 3.10.0-5
+- Strip binary files.
+
 * Tue Sep 20 2022 Wenyu Liu <liuwenyu7@huawei.com> - 3.10.0-4
 - Add the FS compiler options for gcc.
 
