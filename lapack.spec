@@ -4,7 +4,7 @@
 
 Name:		lapack
 Version:	%{mediumver}.0
-Release:	5
+Release:	6
 Summary:	The LAPACK libraries for numerical linear algebra.
 License:	BSD
 URL:		http://www.netlib.org/lapack/
@@ -13,7 +13,9 @@ Source1:	http://www.netlib.org/lapack/manpages.tgz
 
 Patch1:		0001-fix-lapack-devel-build-error.patch
 Patch2:		0002-Fix-out-of-bounds-read-in-slarrv.patch
-
+%if "%toolchain" == "clang"
+Patch3:   0003-fix-clang.patch
+%endif
 BuildRequires: gcc-gfortran
 Provides:	blas = %{version}-%{release}
 Obsoletes:	blas < %{version}-%{release}
@@ -207,6 +209,9 @@ sed -i 's|@LAPACK_VERSION@|%{version}|g' %{buildroot}%{_libdir}/pkgconfig/lapack
 %endif
 
 %changelog
+* Wed May 28 2023 Xiang Zhang <zhangxiang@iscas.ac.cn> - 3.10.0-6
+- Fix clang build error
+
 * Fri Sep 16 2022 Wenyu Liu <liuwenyu7@huawei.com> - 3.10.0-5
 - Add the FS compiler options for gcc.
 

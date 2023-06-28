@@ -1,0 +1,46 @@
+diff -ur lapack-3.10.0/BLAS/SRC/Makefile lapack-3.10.0/BLAS/SRC/Makefile
+--- lapack-3.10.0/BLAS/SRC/Makefile	2021-06-29 00:39:12.000000000 +0800
++++ lapack-3.10.0/BLAS/SRC/Makefile	2023-05-24 17:56:21.800519843 +0800
+@@ -55,7 +55,7 @@
+ 
+ TOPSRCDIR = ../..
+ include $(TOPSRCDIR)/make.inc
+-
++FC=clang
+ .SUFFIXES: .F .f90 .o
+ .F.o:
+ 	$(FC) $(FFLAGS) -c -o $@ $<
+diff -ur lapack-3.10.0/INSTALL/Makefile lapack-3.10.0/INSTALL/Makefile
+--- lapack-3.10.0/INSTALL/Makefile	2021-06-29 00:39:12.000000000 +0800
++++ lapack-3.10.0/INSTALL/Makefile	2023-05-24 21:08:04.654309988 +0800
+@@ -1,6 +1,6 @@
+ TOPSRCDIR = ..
+ include $(TOPSRCDIR)/make.inc
+-
++FC=clang
+ .PHONY: all testlsame testslamch testdlamch testsecond testdsecnd testieee testversion
+ all: testlsame testslamch testdlamch testsecond testdsecnd testieee testversion
+ 
+diff -ur lapack-3.10.0/LAPACKE/example/Makefile lapack-3.10.0/LAPACKE/example/Makefile
+--- lapack-3.10.0/LAPACKE/example/Makefile	2021-06-29 00:39:12.000000000 +0800
++++ lapack-3.10.0/LAPACKE/example/Makefile	2023-05-24 21:08:04.654309988 +0800
+@@ -1,6 +1,6 @@
+ TOPSRCDIR = ../..
+ include $(TOPSRCDIR)/make.inc
+-
++FC=clang
+ .SUFFIXES: .c .o
+ .c.o:
+ 	$(CC) $(CFLAGS) -I. -I../include -c -o $@ $<
+diff -ur lapack-3.10.0/SRC/Makefile lapack-3.10.0/SRC/Makefile
+--- lapack-3.10.0/SRC/Makefile	2021-06-29 00:39:12.000000000 +0800
++++ lapack-3.10.0/SRC/Makefile	2023-05-24 17:56:18.452490034 +0800
+@@ -58,7 +58,7 @@
+ include $(TOPSRCDIR)/make.inc
+ 
+ ALLMOD = la_xisnan.mod la_constants.mod
+-
++FC=clang
+ .SUFFIXES: .F .f90 .F90 .o .mod
+ %.o: %.F $(ALLMOD)
+ 	$(FC) $(FFLAGS) -c -o $@ $<
